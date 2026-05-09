@@ -1,13 +1,7 @@
 :root {
   color-scheme: light;
-  --ink: #17211f;
-  --muted: #5e6b66;
-  --line: #d7dfd9;
-  --paper: #f7f6f1;
-  --panel: #ffffff;
-  --accent: #0f766e;
-  --accent-dark: #114d49;
-  --gold: #d89f45;
+  --paper: #f7f3ec;
+  --ink: #2a2420;
 }
 
 * {
@@ -22,7 +16,6 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -34,229 +27,240 @@ main {
   min-height: 100vh;
 }
 
-.hero {
-  min-height: 88vh;
-  padding: 28px clamp(20px, 5vw, 72px) 72px;
-  background:
-    linear-gradient(90deg, rgba(12, 27, 24, 0.9), rgba(12, 27, 24, 0.58)),
-    url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=80");
-  background-position: center;
-  background-size: cover;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* Vitanova Marketing Center production CSS review pass */
+.vmc {
+  --vmc-cream: #f7f3ec;
+  --vmc-cream2: #ede8df;
+  --vmc-cream3: #e3ddd3;
+  --vmc-mint: #6bbfaa;
+  --vmc-text: #2a2420;
+  --vmc-mid: #6b5e56;
+  --vmc-soft: #9e9088;
+  --vmc-safe: #3dad8a;
+  --vmc-risky: #c4614a;
+  --vmc-shadow: 0 1px 3px rgba(42,36,32,0.08), 0 6px 18px rgba(42,36,32,0.06);
+  color: var(--vmc-text);
+  font-family: "DM Sans", "Noto Sans Thai", system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-.nav {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  min-height: 44px;
+.vmc button {
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav strong {
-  font-size: 1rem;
+.vmc button:focus-visible,
+.vmc input:focus-visible {
+  outline: 2px solid var(--vmc-mint);
+  outline-offset: 2px;
 }
 
-.nav a {
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 6px;
-  padding: 10px 14px;
+.vmc .side {
+  width: 210px;
+  min-width: 210px;
 }
 
-.heroContent {
-  max-width: 760px;
+.vmc .top {
+  min-height: 68px;
+  height: auto;
+  padding: 12px 24px;
 }
 
-.eyebrow {
-  color: var(--gold);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  margin: 0 0 14px;
-  text-transform: uppercase;
+.vmc .top h2 {
+  font-size: 24px;
 }
 
-h1,
-h2 {
-  letter-spacing: 0;
-  line-height: 1;
-  margin: 0;
+.vmc .lang button,
+.vmc .ghost {
+  min-height: 34px;
 }
 
-h1 {
-  font-size: clamp(3rem, 8vw, 6.8rem);
-  max-width: 900px;
+.vmc .brands {
+  width: 250px;
+  min-width: 250px;
 }
 
-h2 {
-  font-size: clamp(2rem, 4vw, 4rem);
+.vmc .brand {
+  min-height: 78px;
+  border-radius: 10px;
 }
 
-.intro {
-  color: rgba(255, 255, 255, 0.82);
-  font-size: clamp(1.08rem, 2vw, 1.35rem);
-  line-height: 1.6;
-  max-width: 620px;
+.vmc .brand.active {
+  box-shadow: var(--vmc-shadow);
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 28px;
+.vmc .brand strong,
+.vmc .brand small,
+.vmc .card p,
+.vmc .card li,
+.vmc .hero p,
+.vmc .prompt pre {
+  overflow-wrap: anywhere;
 }
 
-.button,
-.leadForm button {
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  font-weight: 700;
-  justify-content: center;
-  min-height: 48px;
-  padding: 14px 18px;
+.vmc .tabs {
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.primary,
-.leadForm button {
-  background: var(--gold);
-  color: #1f1708;
+.vmc .tabs::-webkit-scrollbar {
+  display: none;
 }
 
-.secondary {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  outline: 1px solid rgba(255, 255, 255, 0.34);
+.vmc .tabs button {
+  min-height: 46px;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 1px solid var(--line);
-  border-top: 1px solid var(--line);
-  background: var(--panel);
+.vmc .panel {
+  padding: 22px 24px 36px;
 }
 
-.stats div {
-  padding: 28px clamp(20px, 5vw, 72px);
+.vmc .hero,
+.vmc .card,
+.vmc .claim {
+  box-shadow: var(--vmc-shadow);
 }
 
-.stats div + div {
-  border-left: 1px solid var(--line);
+.vmc .hero {
+  overflow: hidden;
 }
 
-.stats strong,
-.stats span {
-  display: block;
+.vmc .hero h3 {
+  overflow-wrap: anywhere;
 }
 
-.stats strong {
-  font-size: clamp(1.8rem, 4vw, 3rem);
+.vmc .palette {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 3px;
 }
 
-.stats span {
-  color: var(--muted);
-  margin-top: 6px;
+.vmc .palette button,
+.vmc .claim button,
+.vmc .card button,
+.vmc .prompt button {
+  min-height: 32px;
 }
 
-.contentBand,
-.contact {
-  display: grid;
-  gap: clamp(28px, 6vw, 80px);
-  grid-template-columns: 0.9fr 1.1fr;
-  padding: clamp(56px, 9vw, 112px) clamp(20px, 5vw, 72px);
+.vmc .grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.featureList {
-  display: grid;
-  gap: 14px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.vmc .quote {
+  font-size: 22px;
 }
 
-.featureList li {
-  background: var(--panel);
-  border-left: 4px solid var(--accent);
-  box-shadow: 0 10px 30px rgba(23, 33, 31, 0.08);
-  padding: 22px;
+.vmc .prompt pre {
+  overflow-x: auto;
 }
 
-.contact {
-  background: #e7ece8;
-  align-items: start;
-}
-
-.contact p:not(.eyebrow) {
-  color: var(--muted);
-  font-size: 1.1rem;
-  line-height: 1.7;
-  max-width: 560px;
-}
-
-.leadForm {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  display: grid;
-  gap: 16px;
-  padding: clamp(20px, 4vw, 34px);
-}
-
-.leadForm label {
-  color: var(--muted);
-  display: grid;
-  font-size: 0.9rem;
-  gap: 8px;
-}
-
-.leadForm input,
-.leadForm textarea {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--ink);
-  font: inherit;
-  padding: 12px;
-  width: 100%;
-}
-
-.leadForm button:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
-
-.formMessage {
-  border-radius: 6px;
-  margin: 0;
-  padding: 12px;
-}
-
-.formMessage.success {
-  background: #e3f6ef;
-  color: var(--accent-dark);
-}
-
-.formMessage.error {
-  background: #fff0e6;
-  color: #8a3a12;
-}
-
-@media (max-width: 760px) {
-  .hero {
-    min-height: 82vh;
+@media (max-width: 900px) {
+  .vmc {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
   }
 
-  .stats,
-  .contentBand,
-  .contact {
+  .vmc .top {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .vmc .top > div:first-child {
+    flex-basis: 100%;
+  }
+
+  .vmc .top h2 {
+    font-size: 26px;
+  }
+
+  .vmc .ok {
+    order: 5;
+    width: 100%;
+  }
+
+  .vmc .ghost {
+    flex: 1;
+  }
+
+  .vmc .brands {
+    width: 100%;
+    min-width: 0;
+    max-height: none;
+    border-right: 0;
+    border-bottom: 1px solid var(--vmc-cream3);
+  }
+
+  .vmc .brands label {
+    display: block;
+    padding-bottom: 2px;
+  }
+
+  .vmc .brand {
+    display: inline-grid;
+    width: min(44vw, 180px);
+    min-width: 155px;
+    margin-right: 8px;
+    vertical-align: top;
+  }
+
+  .vmc .detail {
+    min-width: 0;
+  }
+
+  .vmc .tabs {
+    padding: 0 12px;
+  }
+
+  .vmc .tabs button {
+    min-height: 44px;
+    padding: 12px;
+  }
+
+  .vmc .panel {
+    padding: 16px 14px 28px;
+  }
+
+  .vmc .hero,
+  .vmc .card,
+  .vmc .claim,
+  .vmc .prompt {
+    padding: 15px;
+  }
+
+  .vmc .hero h3 {
+    font-size: 36px;
+  }
+
+  .vmc .palette {
+    float: none;
+    margin-top: 10px;
+  }
+
+  .vmc .grid {
     grid-template-columns: 1fr;
   }
 
-  .stats div + div {
-    border-left: 0;
-    border-top: 1px solid var(--line);
+  .vmc .quote {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 420px) {
+  .vmc .card div,
+  .vmc .claim div:first-child,
+  .vmc .prompt div {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .vmc .card button,
+  .vmc .claim button,
+  .vmc .prompt button {
+    justify-content: center;
+    width: 100%;
   }
 }
