@@ -1,5 +1,5 @@
-import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
+import postgres from "postgres";
 
 type LeadPayload = {
   name?: unknown;
@@ -10,6 +10,24 @@ type LeadPayload = {
 
 function clean(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+let client: ReturnType<typeof postgres> | null = null;
+
+function getDatabase() {
+  const connectionString =
+    process.env.SUPABASE_DB_URL ||
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL;
+
+  if (!connectionString) return null;
+
+  client ??= postgres(connectionString, {
+    max: 1,
+    ssl: "require",
+  });
+
+  return client;
 }
 
 export async function POST(request: Request) {
@@ -26,7 +44,9 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!process.env.POSTGRES_URL) {
+  const sql = getDatabase();
+
+  if (!sql) {
     return NextResponse.json(
       { message: "Database is not connected yet." },
       { status: 503 }
