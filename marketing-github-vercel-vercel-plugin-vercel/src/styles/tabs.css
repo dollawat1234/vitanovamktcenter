@@ -1,0 +1,51 @@
+#brand-detail-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--cream2);
+}
+
+#tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 24px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream3);
+  flex-shrink: 0;
+}
+
+.tab {
+  padding: 13px 14px 11px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-soft);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tab:hover {
+  color: var(--text-dark);
+}
+
+.tab.active {
+  color: var(--mint);
+  border-bottom-color: var(--mint);
+  font-weight: 500;
+}
+
+.tab-icon {
+  font-size: 13px;
+}
+
+#tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 24px 32px;
+}

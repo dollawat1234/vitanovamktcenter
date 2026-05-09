@@ -1,0 +1,72 @@
+:root {
+  --cream:        #F7F3EC;
+  --cream2:       #EDE8DF;
+  --cream3:       #E3DDD3;
+  --cream4:       #D5CECC;
+  --mint:         #6BBFAA;
+  --mint-light:   #C8EDE4;
+  --mint-pale:    #E6F5F1;
+  --purple:       #9B84C4;
+  --purple-light: #D8CFF0;
+  --purple-pale:  #EDE8F8;
+  --text-dark:    #2A2420;
+  --text-mid:     #6B5E56;
+  --text-soft:    #9E9088;
+  --text-faint:   #BFB8B2;
+  --safe:         #3DAD8A;
+  --safe-bg:      #DCF2EB;
+  --risky:        #C4614A;
+  --risky-bg:     #F5E0DB;
+  --sidebar-w:    210px;
+  --r:            10px;
+  --shadow:       0 1px 3px rgba(42,36,32,0.08), 0 4px 12px rgba(42,36,32,0.04);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+button, input {
+  font: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cream3);
+  border-radius: 2px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade {
+  animation: fadeUp 0.2s ease forwards;
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vitanova Marketing Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="src/styles/main.css" />
+    <link rel="stylesheet" href="src/styles/sidebar.css" />
+    <link rel="stylesheet" href="src/styles/topbar.css" />
+    <link rel="stylesheet" href="src/styles/brandList.css" />
+    <link rel="stylesheet" href="src/styles/tabs.css" />
+    <link rel="stylesheet" href="src/styles/components.css" />
+  </head>
+  <body>
+    <aside id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.8 0 7 3.1 7 7 0 5.2-7 10-7 10s-7-4.8-7-10c0-3.9 3.2-7 7-7Zm0 3.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Z"/></svg>
+        </div>
+        <div class="sys-name">Vitanova<br />Marketing Center</div>
+        <div class="sys-tag">Brand OS</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Production</div>
+        <div class="nav-item active"><span class="nav-num">01</span>Brand Library</div>
+        <div class="nav-item disabled"><span class="nav-num">02</span>Campaign Builder<span class="nav-badge">Soon</span></div>
+        <div class="nav-item disabled"><span class="nav-num">03</span>Claim Review<span class="nav-badge">Soon</span></div>
+      </nav>
+      <div class="sidebar-footer"><div class="ver-tag">V1.0 · Static Build</div></div>
+    </aside>
+
+    <main id="main">
+      <header id="topbar">
+        <div class="topbar-titles">
+          <div class="topbar-title">Brand Library</div>
+          <div class="topbar-sub">Bilingual marketing rules, prompts, and claim-safe wording</div>
+        </div>
+        <span id="global-copy-ok" class="copy-ok">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M10.8 3.4 5.2 9 2.4 6.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Copied
+        </span>
+        <div class="lang-toggle" aria-label="Language">
+          <button id="btn-th" class="lang-btn active" type="button" onclick="setLang('th')">TH</button>
+          <button id="btn-en" class="lang-btn" type="button" onclick="setLang('en')">EN</button>
+        </div>
+        <button id="btn-export" class="btn btn-ghost" type="button">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5v6m0 0 2-2m-2 2-2-2M2.2 8.5v2h8.6v-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Export JSON
+        </button>
+      </header>
+
+      <div id="content-wrapper">
+        <section id="brand-list-panel">
+          <div class="panel-hdr">
+            <div class="panel-hdr-title">Brands</div>
+            <label class="search-wrap">
+              <svg viewBox="0 0 13 13" fill="none"><path d="m10.5 10.5-2.4-2.4m1.1-2.7a3.8 3.8 0 1 1-7.6 0 3.8 3.8 0 0 1 7.6 0Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <input id="search-input" type="search" placeholder="Search brand" />
+            </label>
+          </div>
+          <div id="brand-list" class="brand-list"></div>
+        </section>
+
+        <section id="brand-detail-area">
+          <div id="tab-bar">
+            <div class="tab active" data-tab="overview"><span class="tab-icon">◇</span>Overview</div>
+            <div class="tab" data-tab="voice"><span class="tab-icon">✦</span>Voice & Visual</div>
+            <div class="tab" data-tab="rules"><span class="tab-icon">◎</span>Rules</div>
+            <div class="tab" data-tab="claim"><span class="tab-icon">✓</span>Claim Safety</div>
+            <div class="tab" data-tab="prompt"><span class="tab-icon">⌘</span>Brand Prompt</div>
+          </div>
+          <div id="tab-content"></div>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="src/modules/brandLibrary.js"></script>
+  </body>
+</html>

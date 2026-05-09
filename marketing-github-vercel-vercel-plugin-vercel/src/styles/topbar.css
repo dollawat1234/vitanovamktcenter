@@ -1,0 +1,117 @@
+#main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#topbar {
+  padding: 14px 24px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.topbar-titles {
+  flex: 1;
+}
+
+.topbar-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.topbar-sub {
+  font-size: 11px;
+  color: var(--text-soft);
+  margin-top: 1px;
+}
+
+.lang-toggle {
+  display: flex;
+  background: var(--cream2);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--cream3);
+}
+
+.lang-btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  font-family: inherit;
+  transition: all 0.15s;
+  letter-spacing: 0.04em;
+}
+
+.lang-btn.active {
+  background: white;
+  color: var(--text-dark);
+  box-shadow: 0 1px 3px rgba(42,36,32,0.1);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.btn-ghost {
+  background: white;
+  border: 1px solid var(--cream3);
+  color: var(--text-mid);
+}
+
+.btn-ghost:hover {
+  border-color: var(--cream4);
+  color: var(--text-dark);
+}
+
+.btn-mint {
+  background: var(--mint);
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.copy-ok {
+  display: none;
+  font-size: 11px;
+  color: var(--mint);
+  align-items: center;
+  gap: 4px;
+}
+
+.copy-ok svg {
+  width: 12px;
+  height: 12px;
+}
+
+.copy-ok.show {
+  display: flex;
+}
