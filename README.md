@@ -9,6 +9,10 @@ Marketing website prepared for GitHub, Vercel, and a Postgres database.
 - Vercel Postgres / Neon-compatible Postgres
 - Lead capture API at `/api/leads`
 
+## Production Spec
+
+Use `docs/production-spec.md` as the source of truth for production location, stack, database contract, and future development rules.
+
 ## Database
 
 Create a Vercel-managed Postgres database, pull the generated environment variables, then run the SQL in `db/schema.sql`.
