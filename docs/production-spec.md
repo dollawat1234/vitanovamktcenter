@@ -8,7 +8,7 @@ This document is the working baseline for future development on the marketing si
 - Default branch: `main`
 - Local workspace: `/Users/dollawat_mac/Documents/Codex/2026-05-09/marketing-github-vercel-vercel-plugin-vercel`
 - Intended hosting: Vercel
-- Intended database: Vercel Postgres / Neon-compatible Postgres
+- Intended database: Supabase Postgres
 
 ## Current Product Scope
 
@@ -28,21 +28,29 @@ Current surfaces:
 - TypeScript
 - Global CSS in `app/globals.css`
 - Vercel deployment target
-- `@vercel/postgres` for server-side database access
+- `postgres` for server-side Supabase Postgres access
 
 ## Environment Variables
 
 Required database variables are listed in `.env.example`.
 
-- `POSTGRES_URL`
-- `POSTGRES_PRISMA_URL`
-- `POSTGRES_URL_NON_POOLING`
-- `POSTGRES_USER`
-- `POSTGRES_HOST`
-- `POSTGRES_PASSWORD`
-- `POSTGRES_DATABASE`
+- `SUPABASE_PROJECT_REF=hazqbyphdupfwejsenro`
+- `SUPABASE_URL=https://hazqbyphdupfwejsenro.supabase.co`
+- `SUPABASE_DB_HOST=db.hazqbyphdupfwejsenro.supabase.co`
+- `SUPABASE_DB_URL`
+
+The API also accepts `DATABASE_URL` or `POSTGRES_URL` as fallback connection-string names.
 
 Do not commit real secret values.
+
+## Supabase Production Project
+
+- Project name: `VitanovaMKTcenter`
+- Project ref / ID: `hazqbyphdupfwejsenro`
+- Project URL: `https://hazqbyphdupfwejsenro.supabase.co`
+- Region: `ap-northeast-2`
+- Database host: `db.hazqbyphdupfwejsenro.supabase.co`
+- Postgres version: `17.6.1.121`
 
 ## Database Contract
 
@@ -97,14 +105,14 @@ Future design work should preserve this baseline unless the product direction ch
 - Keep database changes reflected in `db/schema.sql`.
 - Keep new required environment variables documented in `.env.example`.
 - Avoid committing secrets or local environment files.
-- Prefer Vercel-native services for hosting and database integration.
+- Use Vercel for hosting and Supabase for the production Postgres database.
 - Keep copy specific to the campaign/business instead of generic filler.
 
 ## Next Production Steps
 
 1. Import the GitHub repository into Vercel.
-2. Create/connect a Vercel Postgres database.
-3. Add the generated environment variables to Vercel.
-4. Run `db/schema.sql` against the production database.
+2. Add `SUPABASE_DB_URL` to Vercel environment variables.
+3. Run `db/schema.sql` against the production Supabase database when schema changes.
+4. Confirm `/api/leads` can insert a test lead.
 5. Deploy from the `main` branch.
 6. Submit a test lead and verify it appears in the database.
