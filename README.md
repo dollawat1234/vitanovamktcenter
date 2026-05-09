@@ -25,6 +25,19 @@ Supabase production database:
 
 The `leads` table schema lives in `db/schema.sql`.
 
+## Data Split
+
+- Brand Library: local `brands.js`
+- Product Library: Supabase `products`
+- Image Library: Supabase `images` plus Storage buckets
+- Prompt Generator: Supabase `prompts`
+- Daily Work: Supabase `work_logs`
+
+Storage buckets:
+
+- `brand-assets`
+- `product-assets`
+
 Required environment variables are listed in `.env.example`. Add `SUPABASE_DB_URL` in Vercel as a server-side environment variable.
 
 ## Deployment
