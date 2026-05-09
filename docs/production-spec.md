@@ -54,7 +54,43 @@ Do not commit real secret values.
 
 ## Database Contract
 
-The `leads` table is the first production database table.
+Vitanova Marketing Center uses a deliberate split between local static data and Supabase data.
+
+| Module | Data source | Reason |
+| --- | --- | --- |
+| 01 Brand Library | `brands.js` local | Static brand rules do not change often and should be reviewed through code changes. |
+| 02 Product Library | Supabase `products` | Products change often and need CRUD. |
+| 03 Image Library | Supabase `images` + Storage buckets | Real image files need upload and management. |
+| 04 Prompt Generator | Supabase `prompts` | Prompt history should be saved and reused. |
+| 05 Daily Work | Supabase `work_logs` | Daily work logs need query by date and brand. |
+
+Brand data remains local unless the user explicitly changes the architecture.
+
+## Storage Contract
+
+Supabase Storage has two primary buckets:
+
+- `brand-assets`: logos, hero images, visual references at brand level.
+- `product-assets`: product photos, packaging images, lifestyle references.
+
+The `images` table is the metadata registry for Storage. It stores the `bucket`, `path`, `owner_type`, `owner_id`, and `image_type`.
+
+Allowed `owner_type` values:
+
+- `brand`
+- `product`
+
+Allowed `image_type` values:
+
+- `logo`
+- `hero`
+- `main`
+- `packaging`
+- `ref`
+
+## Database Tables
+
+The `leads` table stores lead submissions.
 
 Required columns:
 
@@ -71,6 +107,13 @@ Optional columns:
 Schema source of truth:
 
 - `db/schema.sql`
+
+Additional Supabase tables:
+
+- `products`: product library records keyed by `brand_id`.
+- `images`: image metadata registry for files in `brand-assets` and `product-assets`.
+- `prompts`: prompt generation history and reusable outputs.
+- `work_logs`: daily work logs queryable by `work_date`, `brand_id`, and related product.
 
 ## Lead Capture Behavior
 
