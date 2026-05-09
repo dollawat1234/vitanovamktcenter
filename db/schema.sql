@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS leads (
   message TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS leads_created_at_idx ON leads (created_at DESC);
