@@ -12,9 +12,13 @@ export async function PATCH(request: Request, { params }: Params) {
   const rows = await sql`
     UPDATE public.images
     SET
-      label = ${input.label ?? null},
-      note = ${input.note ?? null},
-      sort_order = COALESCE(${input.sort_order ?? null}, sort_order)
+      alt_text = ${input.label ?? null},
+      metadata = metadata || jsonb_strip_nulls(jsonb_build_object(
+        'label', ${input.label ?? null},
+        'note', ${input.note ?? null},
+        'sort_order', ${input.sort_order ?? null}
+      )),
+      updated_at = now()
     WHERE id = ${id}
     RETURNING *
   `;

@@ -21,16 +21,32 @@ export async function GET(request: Request) {
   const ownerType = searchParams.get("owner_type");
   const ownerId = searchParams.get("owner_id");
 
+  const imageSelect = `
+    SELECT
+      id,
+      owner_type,
+      owner_id,
+      image_type,
+      path AS storage_path,
+      bucket AS storage_bucket,
+      COALESCE(metadata->>'public_url', 'https://hazqbyphdupfwejsenro.supabase.co/storage/v1/object/public/' || bucket || '/' || path) AS public_url,
+      COALESCE(metadata->>'label', alt_text, image_type) AS label,
+      metadata->>'note' AS note,
+      COALESCE((metadata->>'sort_order')::integer, 0) AS sort_order,
+      created_at
+    FROM public.images
+  `;
+
   const rows = ownerType && ownerId
-    ? await sql`
-        SELECT * FROM public.images
-        WHERE owner_type = ${ownerType} AND owner_id = ${ownerId}
-        ORDER BY sort_order, uploaded_at DESC
-      `
-    : await sql`
-        SELECT * FROM public.images
-        ORDER BY owner_type, owner_id, sort_order, uploaded_at DESC
-      `;
+    ? await sql.unsafe(`
+        ${imageSelect}
+        WHERE owner_type = $1 AND owner_id = $2
+        ORDER BY sort_order, created_at DESC
+      `, [ownerType, ownerId])
+    : await sql.unsafe(`
+        ${imageSelect}
+        ORDER BY owner_type, owner_id, sort_order, created_at DESC
+      `);
 
   return NextResponse.json({ images: rows });
 }
@@ -44,15 +60,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "owner_type, owner_id, image_type, storage_path, and storage_bucket are required." }, { status: 400 });
   }
 
+  const imageType = input.image_type === "logo_dark" ? "logo" : ["visual_ref", "mood"].includes(input.image_type) ? "ref" : input.image_type;
+
   const rows = await sql`
-    INSERT INTO public.images (
-      owner_type, owner_id, image_type, storage_path, storage_bucket,
-      public_url, label, note, sort_order
-    )
+    INSERT INTO public.images (owner_type, owner_id, image_type, path, bucket, alt_text, metadata)
     VALUES (
-      ${input.owner_type}, ${input.owner_id}, ${input.image_type}, ${input.storage_path},
-      ${input.storage_bucket}, ${input.public_url || null}, ${input.label || null},
-      ${input.note || null}, ${input.sort_order || 0}
+      ${input.owner_type}, ${input.owner_id}, ${imageType}, ${input.storage_path},
+      ${input.storage_bucket}, ${input.label || null},
+      jsonb_strip_nulls(jsonb_build_object(
+        'public_url', ${input.public_url || null},
+        'label', ${input.label || null},
+        'note', ${input.note || null},
+        'sort_order', ${input.sort_order || 0}
+      ))
     )
     RETURNING *
   `;
