@@ -17,9 +17,10 @@ export async function GET(request: Request) {
   const sql = getDatabase();
   if (!sql) return NextResponse.json({ images: [], message: "Database is not connected yet." }, { status: 503 });
 
-  const { searchParams } = new URL(request.url);
-  const ownerType = searchParams.get("owner_type");
-  const ownerId = searchParams.get("owner_id");
+  try {
+    const { searchParams } = new URL(request.url);
+    const ownerType = searchParams.get("owner_type");
+    const ownerId = searchParams.get("owner_id");
 
   const imageSelect = `
     SELECT
@@ -37,18 +38,22 @@ export async function GET(request: Request) {
     FROM public.images
   `;
 
-  const rows = ownerType && ownerId
-    ? await sql.unsafe(`
-        ${imageSelect}
-        WHERE owner_type = $1 AND owner_id = $2
-        ORDER BY sort_order, created_at DESC
-      `, [ownerType, ownerId])
-    : await sql.unsafe(`
-        ${imageSelect}
-        ORDER BY owner_type, owner_id, sort_order, created_at DESC
-      `);
+    const rows = ownerType && ownerId
+      ? await sql.unsafe(`
+          ${imageSelect}
+          WHERE owner_type = $1 AND owner_id = $2
+          ORDER BY sort_order, created_at DESC
+        `, [ownerType, ownerId])
+      : await sql.unsafe(`
+          ${imageSelect}
+          ORDER BY owner_type, owner_id, sort_order, created_at DESC
+        `);
 
-  return NextResponse.json({ images: rows });
+    return NextResponse.json({ images: rows });
+  } catch (error) {
+    console.error("Image API error", error);
+    return NextResponse.json({ images: [], message: "Image database query failed." }, { status: 200 });
+  }
 }
 
 export async function POST(request: Request) {

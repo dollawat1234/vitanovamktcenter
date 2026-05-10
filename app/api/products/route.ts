@@ -69,26 +69,31 @@ export async function GET(request: Request) {
   const sql = getDatabase();
   if (!sql) return unavailable();
 
-  const { searchParams } = new URL(request.url);
-  const brandId = searchParams.get("brand_id");
-  const q = `%${(searchParams.get("q") || "").trim()}%`;
+  try {
+    const { searchParams } = new URL(request.url);
+    const brandId = searchParams.get("brand_id");
+    const q = `%${(searchParams.get("q") || "").trim()}%`;
 
-  const rows = brandId
-    ? await sql.unsafe(`
-        ${productSelect}
-        WHERE p.status = 'active'
-          AND p.brand_id = $1
-          AND ($2 = '%%' OR p.name ILIKE $2 OR p.sku ILIKE $2 OR p.category ILIKE $2 OR p.metadata->>'name_th' ILIKE $2)
-        ORDER BY p.brand_id, sort_order, p.name
-      `, [brandId, q])
-    : await sql.unsafe(`
-        ${productSelect}
-        WHERE p.status = 'active'
-          AND ($1 = '%%' OR p.name ILIKE $1 OR p.sku ILIKE $1 OR p.category ILIKE $1 OR p.metadata->>'name_th' ILIKE $1)
-        ORDER BY p.brand_id, sort_order, p.name
-      `, [q]);
+    const rows = brandId
+      ? await sql.unsafe(`
+          ${productSelect}
+          WHERE p.status = 'active'
+            AND p.brand_id = $1
+            AND ($2 = '%%' OR p.name ILIKE $2 OR p.sku ILIKE $2 OR p.category ILIKE $2 OR p.metadata->>'name_th' ILIKE $2)
+          ORDER BY p.brand_id, sort_order, p.name
+        `, [brandId, q])
+      : await sql.unsafe(`
+          ${productSelect}
+          WHERE p.status = 'active'
+            AND ($1 = '%%' OR p.name ILIKE $1 OR p.sku ILIKE $1 OR p.category ILIKE $1 OR p.metadata->>'name_th' ILIKE $1)
+          ORDER BY p.brand_id, sort_order, p.name
+        `, [q]);
 
-  return NextResponse.json({ products: rows });
+    return NextResponse.json({ products: rows });
+  } catch (error) {
+    console.error("Product API error", error);
+    return NextResponse.json({ products: [], message: "Product database query failed." }, { status: 200 });
+  }
 }
 
 export async function POST(request: Request) {
